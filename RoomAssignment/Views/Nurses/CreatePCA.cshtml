@@ -1,0 +1,61 @@
+﻿@model RoomAssignment.Models.Nurse
+
+<div class="wrapper">
+    <div class="wrapperNest">
+        <img src="~/Content/SEH horizontal logo.JPG" class="horizontalLogo" alt="" />
+        <h4>Add New PCA</h4>
+        <div class="bgbody">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="bgbodyNested">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <script>
+                        window.onload = function () {
+                            if (document.location.search.length == 0) {
+                                window.location = window.location.pathname + "?Floor=" + localStorage.getItem('todoDataFloor');
+                            }
+                        }
+                    </script>
+                    <div class="textboxHolderLeft">
+                        <div class="listLeft">
+                            Position<br />
+                            Floor<br />
+                            Name<br />
+                            Rooms<br />
+                            Phone<br />
+                        </div>
+                    </div>
+                    <div class="textboxHolderRight">
+                        <div class="listRight">
+                            @Html.EditorFor(model => model.Position, new { htmlattributes = new { @Value = "PCA", @readonly = "readonly", @style = "height:40px;background-color:#D9E1F2;border:0;font-size:25px" } })
+                            @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                            <br />
+                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @Value = Request.QueryString["Floor"], @readonly = "readonly", @style = "height:40px;background-color:#D9E1F2;border:0;font-size:25px" } })
+                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                            <br />
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "display:inline-block", @maxlength = "12", @required = "true", @pattern = ".*\\S+.*", @title = "This field is required" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            <br />
+                            @Html.EditorFor(model => model.Rooms, new { htmlAttributes = new { @class = "form-control", @style = "display:inline-block", @maxlength = "26" } })
+                            @Html.ValidationMessageFor(model => model.Rooms, "", new { @class = "text-danger" })
+                            <br />
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @style = "display:inline-block", @pattern = "[0-9]+", @maxlength = "4", @title = "Please enter 4 digit phone extension" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                            <br />
+                        </div>
+                    </div>
+                    <div class="buttonHolder">
+                        <input class="submitAddition" type="submit" value="Add" />
+                    </div>
+                </div>
+            }
+            <h4>
+                @Html.ActionLink("Back to list", "Index", null, new { @style = "color:white;font-family: Lucida 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size:35px" })
+            </h4>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

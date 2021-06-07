@@ -1,0 +1,50 @@
+﻿@model List<RoomAssignment.Models.Nurse>
+
+<div id="wrapperTall">
+    <img src="~/Content/SEH horizontal logo.JPG" id="horizontalLogoAlt" alt="" />
+    <h4>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View All Entries
+        <text id="backToListRight">
+            @Html.ActionLink("Back to list", "Index", null, new { @style = "color:white;font-family: Lucida 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size:35px" })
+        </text>
+    </h4>
+    <div>
+        <table id="fullTable" border="1">
+            <tr>
+                <th style="width:5%">#</th>
+                <th style="width:22%">Name</th>
+                <th style="width:24%">Position</th>
+                <th style="width:7%">Floor</th>
+                <th style="width:22%">Rooms</th>
+                <th style="width:20%">Extension</th>
+            </tr>
+            @{
+                int counter = 0;
+                foreach (var nurse in Model)
+                {
+                    counter++;
+                    <tr>
+                        <td>@counter</td>
+                        <td>&nbsp;&nbsp;&nbsp;@nurse.Name<span class="rotateleft"><text class="centerButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9998;"), "Edit", new { id = nurse.ID }, new { style = "color:Black" })</text></span></td>
+                        <td class="tdAlt">@nurse.Position</td>
+                        <td>@nurse.Location</td>
+                        <td>
+                            @if (nurse.Rooms != null)
+                            {
+                                @nurse.Rooms
+                            }
+                            else
+                            {
+                                @:N/A
+                            }
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;@nurse.Phone<text class="rightButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9746;"), "Delete", new { id = nurse.ID }, new { style = "color:Black" })</text></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <h4>
+        @Html.ActionLink("Back to list", "Index", null, new { @style = "color:white;font-family: Lucida 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size:35px" })
+    </h4>
+</div>

@@ -1,0 +1,304 @@
+﻿@model List<RoomAssignment.Models.Nurse>
+
+    <div class="wrapper">
+        <div id="leftColumn">
+            <img src="~/Content/SEH horizontal logo.JPG" id="mainLogo" alt="" />
+
+            <script>checkForLocal();</script>
+
+            <div id="leftColumnLeftBox">
+                <table class="leftBoxTable">
+                    <caption class="leftCaption">
+                        <br />
+                    </caption>
+                    <tr><th>Floor</th></tr>
+                    <tr>
+                        <td id="tdShrink1px">
+                            &nbsp;&nbsp;<select id="editFloor" onchange="doAction(this.value);" class="leftDropdown">
+                                <option value="1">1st</option>
+                                <option value="2">2nd</option>
+                                <option value="3">3rd</option>
+                                <option value="4">4th</option>
+                                <option value="5">5th</option>
+                                <option value="6">6th</option>
+                                <option value="7">7th</option>
+                                <option value="CCU">CCU</option>
+                                <option value="CDU">CDU</option>
+                            </select>
+                            <script>floorEdit();</script>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+
+            <div id="leftColumnRightBox">
+                <table class="leftBoxTable">
+                    <caption class="leftCaption">
+                        <br />
+                    </caption>
+                    <tr><th>Shift</th></tr>
+                    <tr>
+                        <td>
+                            <div id="displayShift">
+                                <script>checkTime();</script>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <table>
+                <caption class="leftCaption">
+                    <br />
+                </caption>
+                <tr><th>Today's Date</th></tr>
+                <tr class="coloredTR">
+                    <td>
+                        <div id="datetimetop">
+                            <script>timeByDay();</script>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="coloredTR">
+                    <td>
+                        <div id="datetimebottom">
+                            <script>timeBySec();</script>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+            <table>
+                <caption class="leftCaption">
+                    @{
+                        if (Model.Any(nurse => nurse.Position == "Charge Nurse"))
+                        {
+                            @:<text class="addButtonUnavailable">&#10133;</text>
+                        }
+                        else
+                        {
+                            @:<text class="addButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#10133;"), "CreateChargeNurse", null, new { style = "color:Black" })</text>
+                        }
+                    }
+                </caption>
+                <tr>
+                    <th>
+                        Charge Nurse
+                    </th>
+                </tr>
+                @{
+                    int countercn = 0;
+                    foreach (var nurse in Model)
+                    {
+                        if (nurse.Position == "Charge Nurse" && countercn < 1)
+                        {
+                            countercn++;
+                            <tr class="coloredTR">
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;@nurse.Name<span class="rotateleftAdjust"><text class="leftButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9998;"), "Edit", new { id = nurse.ID }, new { style = "color:Black" })</text></span>
+                                </td>
+                            </tr>
+                            <tr class="coloredTR">
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;@nurse.Phone
+                                    <text class="leftButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9746;"), "Delete", new { id = nurse.ID }, new { style = "color:Black" })</text>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    if (!Model.Any(n => n.Position == "Charge Nurse"))
+                    {
+                        <tr class="coloredTR"><td>&nbsp;</td></tr>
+                        <tr class="coloredTR"><td>&nbsp;</td></tr>
+                    }
+                }
+            </table>
+
+
+
+
+            <table>
+                <caption class="leftCaption">
+                    @{
+                        if (Model.Any(nurse => nurse.Position == "Respiratory Therapy"))
+                        {
+                            @:<text class="addButtonUnavailable">&#10133;</text>
+                        }
+                        else
+                        {
+                            @:<text class="addButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#10133;"), "CreateRT", null, new { style = "color:Black" })</text>
+                        }
+                    }
+                </caption>
+                <tr>
+                    <th>
+                        Respiratory Therapy
+                    </th>
+                </tr>
+
+                @{
+                    int counterrt = 0;
+
+                    foreach (var nurse in Model)
+                    {
+                        if (nurse.Position == "Respiratory Therapy" && counterrt < 1)
+                        {
+                            counterrt++;
+                            <tr class="coloredTR">
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;@nurse.Name<span class="rotateleftAdjust"><text class="leftButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9998;"), "Edit", new { id = nurse.ID }, new { style = "color:Black" })</text></span>
+                                </td>
+                            </tr>
+                            <tr class="coloredTR">
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;@nurse.Phone
+                                    <text class="leftButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9746;"), "Delete", new { id = nurse.ID }, new { style = "color:Black" })</text>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    if (!Model.Any(n => n.Position == "Respiratory Therapy"))
+                    {
+                        <tr class="coloredTR"><td>&nbsp;</td></tr>
+                        <tr class="coloredTR"><td>&nbsp;</td></tr>
+                    }
+                }
+            </table>
+
+
+
+            <div id="bottomLinks">
+                <text>
+                    @Html.ActionLink("Information", "Info", null, new { @style = "color:#005EA8;font-family: Lucida 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size:25px" })
+                    | @Html.ActionLink("View All Entries", "ViewAll", null, new { @style = "color:#005EA8;font-family: Lucida 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size:25px" })
+                <text>
+            </div>
+
+
+            <div id="pageRefreshSelect">
+                <script>defaultRefresh();</script>
+                Refresh Every
+                <select id="pageRefresh" onchange="location.reload();" class="refreshDropdown">
+                    <option value=""></option>
+                    <option value="60000">1</option>
+                    <option value="180000">3</option>
+                    <option value="300000">5</option>
+                    <option value="600000">10</option>
+                </select>
+                Minutes
+                <script>pageRefreshStore();</script>
+            </div>
+    </div>
+
+
+
+
+
+
+    <div id="rightColumn">
+
+        <table class="rightTable" border="1">
+            <caption class="rightCaption">
+                &nbsp;&nbsp;&nbsp;&nbsp;Nurses
+                @{
+                        if (Model.Count(n => n.Position == "Nurse") < 10)
+                        {
+                        @:<text class="addButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#10133;"), "Create", null, new { Floor = Request.QueryString["Floor"] }, new { style = "color:Black" })</text>
+                        }
+                        else
+                        {
+                        @:<text class="addButtonUnavailable">&#10133;</text>
+                        }
+                }
+            </caption>
+            <tr>
+                <th style="width:30%">Nurse</th>
+                <th style="width:40%">Rooms</th>
+                <th style="width:30%">Extension</th>
+            </tr>
+
+            @{
+                    var counter = 0;
+
+                    foreach (var nurse in Model)
+                    {
+                        if (nurse.Position == "Nurse" && counter < 10)
+                        {
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;@nurse.Name<span class="rotateleft"><text class="centerButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9998;"), "Edit", new { id = nurse.ID }, new { style = "color:Black" })</text></span></td>
+                            <td>@nurse.Rooms</td>
+                            <td>&nbsp;&nbsp;&nbsp;@nurse.Phone<text class="rightButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9746;"), "Delete", new { id = nurse.ID }, new { style = "color:Black" })</text></td>
+                        </tr>
+                            counter++;
+                        }
+                    }
+
+                    for (int i = counter; i < 10; i++)
+                    {
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    }
+            }
+
+        </table>
+
+
+
+
+        <table class="rightTable" border="1">
+            <caption class="rightCaption">
+                &nbsp;&nbsp;&nbsp;&nbsp;PCAs
+                @{
+                        if (Model.Count(n => n.Position == "PCA") < 6)
+                        {
+                        @:<text class="addButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#10133;"), "CreatePCA", null, new { Floor = Request.QueryString["Floor"] }, new { style = "color:Black" })</text>
+                        }
+                        else
+                        {
+                        @:<text class="addButtonUnavailable">&#10133;</text>
+                        }
+                }
+            </caption>
+            <tr>
+                <th style="width:30%">PCA</th>
+                <th style="width:40%">Rooms</th>
+                <th style="width:30%">Extension</th>
+            </tr>
+            @{
+                    var counter2 = 0;
+
+                    foreach (var nurse in Model)
+                    {
+                        if (nurse.Position == "PCA" && counter2 < 6)
+                        {
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;@nurse.Name<span class="rotateleft"><text class="centerButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9998;"), "Edit", new { id = nurse.ID }, new { style = "color:Black" })</text></span></td>
+                            <td>@nurse.Rooms</td>
+                            <td>&nbsp;&nbsp;&nbsp;@nurse.Phone<text class="rightButton">@Html.ActionLink(HttpUtility.HtmlDecode("&#9746;"), "Delete", new { id = nurse.ID }, new { style = "color:Black" })</text></td>
+                        </tr>
+                            counter2++;
+                        }
+                    }
+
+                    for (int i = counter2; i < 6; i++)
+                    {
+                    <tr>
+                        <td> &nbsp;</td>
+                        <td> &nbsp;</td>
+                        <td> &nbsp;</td>
+                    </tr>
+                    }
+            }
+        </table>
+    </div>
+</div>
+

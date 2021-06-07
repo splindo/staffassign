@@ -1,0 +1,33 @@
+﻿@model RoomAssignment.Models.Nurse
+<div class="wrapper">
+    <div class="wrapperNest">
+        @{
+            ViewBag.Title = "Information";
+        }
+        <img src="~/Content/SEH horizontal logo.JPG" class="horizontalLogo" alt="" />
+        <h4>Information</h4>
+        <div id="bgbodyInfo">
+                <div class="bgbody">
+                    <div id="infoBox">
+                        <ul>
+                            <li>This program runs best on Google Chrome</li>
+                            <li>Page should be displayed in Kiosk Mode. To enable Kiosk Mode, click anywhere on the page and press F11</li>
+                            <li>Staff names are meant to be displayed as just a first name. If two are displayed with the same name, it would be useful to add an initial for the last names</li>
+                            <li>If page is glitching or refreshing erratically, clearing browser cache/cookies then reselecting options might fix the issue</li>
+                            <li>Shift box updates automatically: 1st Shift displays 7:00 AM - 7:00 PM, and 2nd Shift displays 7:00 PM - 7:00 AM</li>
+                            <li>"Add to table" button is disabled if table is full</li>
+                            <li>"Add to table" button adds an employee to the current floor being displayed</li>
+                            <li>Employees from other floors can not be accessed from separate floors' tables</li>
+                        </ul>
+                        <div id="contact">
+                            <br /><br />
+                            If there are any questions/concerns for the program, contact the helpdesk at EXT:****
+                        </div>
+                    </div>
+                </div>
+            <h4>
+                @Html.ActionLink("Back to list", "Index", null, new { @style = "color:white;font-family: Lucida 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size:35px" })
+            </h4>
+        </div>
+    </div>
+</div>

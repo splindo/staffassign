@@ -1,0 +1,32 @@
+﻿.edit-mode .edit-form-wrapper {
+    background-color:white;
+    width:100%;
+    margin:auto;
+    height:100%;
+}
+.edit-mode body {
+    width:50%;
+    margin:0 auto;
+    padding:0;
+    font-family: Lucida 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 35px;
+}
+.edit-mode body2 {
+    background-color:blue;
+}
+.edit-mode form {
+    display:inline-block;
+    text-align:center;
+    width:100%;
+}
+.edit-mode div {
+    text-align:center;
+}
+.edit-mode divcolor1 {
+    background-color:#D9E1F2;
+}
+.edit-mode .label {
+    display:inline;
+    display:block;
+    text-align:center;
+}
